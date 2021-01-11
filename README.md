@@ -42,7 +42,27 @@ Execute:
 
 `docker-composer up --build`
 
-E em seguida acesse a API pelo endereço: `http://localhost:3333`.
+A API estará aberta na porta 3333.
+
+Ela contém apenas uma rota: 
+
+``POST /password-validator/validate ``  
+
+Que recebe um JSON com o atributo ``password``.
+
+Por exemplo:
+
+```
+
+POST /password-validator/validate
+
+{
+   "password": "Senha inválida"
+}
+
+```
+
+E retorna apenas ``true`` ou ``false``.
 
 ## Detalhes de implementação
 
