@@ -1,16 +1,16 @@
-# Descrição
+# Description
 
-Considere uma senha sendo válida quando a mesma possuir as seguintes definições:
+Consider a valid password when it has the following standards:
 
-- Nove ou mais caracteres
-- Ao menos 1 dígito
-- Ao menos 1 letra minúscula
-- Ao menos 1 letra maiúscula
-- Ao menos 1 caractere especial
-  - Considere como especial os seguintes caracteres: !@#$%^&\*()-+
-- Não possuir caracteres repetidos dentro do conjunto
+- Nine or more characters
+- At least 1 digit
+- At least 1 lowercase letter
+- At least 1 capital letter
+- At least 1 special character
+  - Consider the following characters as special: !@#$%^&\\*()-+
+- Do not have repeated characters within the set
 
-Exemplo:
+Example:
 
 ```c#
 IsValid("") // false
@@ -23,34 +23,32 @@ IsValid("AbTp9 fok") // false
 IsValid("AbTp9!fok") // true
 ```
 
-> **_Nota:_** Espaços em branco não devem ser considerados como caracteres válidos.
+> **_Additional note:_** Blank spaces should not be considered as valid characters.
 
-## Problema
+## Problem
 
-Construa uma aplicação que exponha uma api web que valide se uma senha é válida.
+Build an application that exposes a web api that validates that a password is valid.  
 
-Input: Uma senha (string).  
-Output: Um boolean indicando se a senha é válida.
+Input: A password (string).  
+Output: A boolean indicating whether the password is valid.  
 
-Embora nossas aplicações sejam escritas em Kotlin e C# (.net core), você não precisa escrever sua solução usando elas. Use a linguagem de programação que considera ter mais conhecimento.
+## Usage
 
-## Uso
+The project is built based on the microservice architecture, use the docker-compose to upload the application quickly and with a minimum of configuration.
 
-O projeto está construido com base na arquitetura de microsserviço, utilize o docker-compose para subir a aplicação de forma rápida e com o mínimo de configuração.
-
-Execute:
+Run:
 
 `docker-composer up --build`
 
-A API estará aberta na porta 3333.
+The API will be open on port 3333.
 
-Ela contém apenas uma rota: 
+It contains only one route:
 
-``POST /password-validator/validate ``  
+`POST /password-validator/validate `
 
-Que recebe um JSON com o atributo ``password``.
+That receives a JSON with the attribute ` password`.
 
-Por exemplo:
+For example:
 
 ```
 
@@ -62,33 +60,34 @@ POST /password-validator/validate
 
 ```
 
-E retorna apenas ``true`` ou ``false``.
+And it returns only ` true` or ` false`.
 
-## Detalhes de implementação
+## The solution
 
-O problema dado é relativamente simples, podendo ser resolvido com apenas uma regex, por exemplo. Uma simples requisição com a senha e dando um match nessa senha com uma regex resolve o problema. Porém, essa simplicidade traz alguns problemas futuros, como por exemplo:
+The given problem is relatively simple and can be solved with just one regex, for example. A simple request with the password and matching that password with a regex solves the problem. However, this simplicity brings some future problems, such as:
 
-- Manutenção: o código ficaria muito engessado, sem uma arquitetura definida. Regex também não é tão simples de lidar e quanto mais complexo, mais difícil de entender e dar manutenção;
-- Extensabilidade: adicionar ou remover regras para validação da senha se tornaria um problema, pois teria que reescrever a regex;
-- Responsabilidade: o código ficaria com um único ponto cuidando de tudo. Se tornaria difícil de testar, manter, teria baixa coesão e alto acoplamento.
+- **Maintenance**: the code would be very plastered, without a defined architecture. Regex is also not so simple to deal with and the more complex it is, the more difficult to understand and maintain;
+- **Extensibility**: adding or removing rules for password validation would become a problem, as it would have to rewrite the regex;
+- **Responsibility**: the code would have a single point taking care of everything. It would be difficult to test, maintain, have low cohesion and tight coupling.
 
-Sendo assim, mesmo sendo um problema simples, optei por utilizar conceitos de OOP, SOLID, o padrão de projeto Builder e uma arquitetura limpa, separando o negócio da implementação e uso de frameworks, e dividi o projeto nas seguintes estruturas de pastas:
+So, even though it is a simple problem, I chose to use concepts of OOP, SOLID, the Builder design pattern and a clean architecture, separating the business from the implementation and the use of frameworks, and divided the project into the following folder structures:
 
 ```
+
 - src
   - @types
-  - builders (builders do password para adição das regras)
-  - container (responsável pela injeção de dependência)
-  - domain (responsável pelos entities, values objects e interfaces do domínio)
-  - errors (helper de erro)
-  - infra (onde fica toda a camada de infraestrutura)
-  - rules (regras do password)
-  - services (serviços)
+  - builders (password builders for adding rules)
+  - container (responsible for the dependency injection)
+  - domain (responsible for entities, values objects and interfaces of the domain)
+  - errors (error helper)
+  - infra (where is the entire infrastructure layer)
+  - rules (password rules)
+  - services
 
 ```
 
-A ideia principal é, a qualquer momento, de maneira simples, poder extender as regras de validação com pouco esforço, que além de facilitar a manutenção, facilita os testes e torna o código mais entendível e robusto. Note que ainda sim fiz uso de regex (veja o arquivo `ManagePasswordRules.ts`), porém de forma isolada e simples em cada regra.
+The main idea is, at any time, in a simple way, to be able to extend the validation rules with little effort, which in addition to facilitating maintenance, facilitates testing and makes the code more understandable and robust. Note that I still used regex (see the `ManagePasswordRules.ts` file), but in an isolated and simple way in each rule.
 
-## Testes
+## Tests
 
-Foi implementado testes de unidade e integração, utilizando o Jest. Para rodá-los, execute `npm run test`.
+Unit and integration tests were implemented using Jest. To run them, run `npm run test`.
