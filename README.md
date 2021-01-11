@@ -54,6 +54,7 @@ O problema dado é relativamente simples, podendo ser resolvido com apenas uma r
 
 Sendo assim, mesmo sendo um problema simples, optei por utilizar conceitos de OOP, SOLID, o padrão de projeto Builder e uma arquitetura limpa, separando o negócio da implementação e uso de frameworks, e dividi o projeto nas seguintes estruturas de pastas:
 
+```
 - src
   - @types
   - builders (builders do password para adição das regras)
@@ -63,6 +64,8 @@ Sendo assim, mesmo sendo um problema simples, optei por utilizar conceitos de OO
   - infra (onde fica toda a camada de infraestrutura)
   - rules (regras do password)
   - services (serviços)
+
+```
 
 A ideia principal é, a qualquer momento, de maneira simples, poder extender as regras de validação com pouco esforço, que além de facilitar a manutenção, facilita os testes e torna o código mais entendível e robusto. Note que ainda sim fiz uso de regex (veja o arquivo `ManagePasswordRules.ts`), porém de forma isolada e simples em cada regra.
 
