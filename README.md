@@ -48,9 +48,9 @@ E em seguida acesse a API pelo endereço: `http://localhost:3333`.
 
 O problema dado é relativamente simples, podendo ser resolvido com apenas uma regex, por exemplo. Uma simples requisição com a senha e dando um match nessa senha com uma regex resolve o problema. Porém, essa simplicidade traz alguns problemas futuros, como por exemplo:
 
-- Manutenção: o código ficaria muito engessado, sem uma arquitetura definida. Regex também não é tão simples de lidar e quanto mais complexo, mais difícil de entender e dar manutenção.
-- Extensabilidade: adicionar ou remover regras para validação da senha se tornaria um problema, pois teria que reescrever a regex
-- Responsabilidade: o código ficaria com um único ponto cuidando de tudo. Se tornaria difícil de testar, manter, teria baixa coesão e com isso alto acoplamento.
+- Manutenção: o código ficaria muito engessado, sem uma arquitetura definida. Regex também não é tão simples de lidar e quanto mais complexo, mais difícil de entender e dar manutenção;
+- Extensabilidade: adicionar ou remover regras para validação da senha se tornaria um problema, pois teria que reescrever a regex;
+- Responsabilidade: o código ficaria com um único ponto cuidando de tudo. Se tornaria difícil de testar, manter, teria baixa coesão e alto acoplamento.
 
 Sendo assim, mesmo sendo um problema simples, optei por utilizar conceitos de OOP, SOLID, o padrão de projeto Builder e uma arquitetura limpa, separando o negócio da implementação e uso de frameworks, e dividi o projeto nas seguintes estruturas de pastas:
 
@@ -64,7 +64,7 @@ Sendo assim, mesmo sendo um problema simples, optei por utilizar conceitos de OO
   - rules (regras do password)
   - services (serviços)
 
-A ideia principal é, a qualquer momento, de maneira simples, poder extender as regras de validação com pouco esforço, que além de facilitar a manutenção, facilita os testes e torna o código mais entendível e robusto.
+A ideia principal é, a qualquer momento, de maneira simples, poder extender as regras de validação com pouco esforço, que além de facilitar a manutenção, facilita os testes e torna o código mais entendível e robusto. Note que ainda sim fiz uso de regex (veja o arquivo `ManagePasswordRules.ts`), porém de forma isolada e simples em cada regra.
 
 ## Testes
 
