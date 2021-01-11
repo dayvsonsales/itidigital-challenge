@@ -13,9 +13,7 @@ describe('Password Validator endpoints', () => {
       password: 'AbCd123456789!',
     });
 
-    expect(body).toEqual({
-      valid: true,
-    });
+    expect(body).toBe(true);
   });
 
   it('should be able to validate an invalid password', async () => {
@@ -23,9 +21,7 @@ describe('Password Validator endpoints', () => {
       password: 'AC156789!',
     });
 
-    expect(body).toEqual({
-      valid: false,
-    });
+    expect(body).toBe(false);
   });
 
   it('should be thrown an error when password is not given', async () => {

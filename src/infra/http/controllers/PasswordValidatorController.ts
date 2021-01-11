@@ -18,6 +18,6 @@ export default class PasswordValidatorController {
 
     const valid = await passwordValidatorService.validate(password);
 
-    return response.json({ valid });
+    return response.json(valid);
   }
 }

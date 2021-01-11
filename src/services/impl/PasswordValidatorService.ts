@@ -8,11 +8,11 @@ import { inject, injectable } from 'tsyringe';
 class PasswordValidatorService implements IPasswordValidatorService {
   constructor(
     @inject('ManagePasswordRules')
-    private passwordRules: IManagePasswordRules,
+    private managePasswordRules: IManagePasswordRules,
   ) {}
 
   validate(password: string): boolean {
-    const rules = this.passwordRules.rules();
+    const rules = this.managePasswordRules.rules();
     const isValidPassword = new Password(password, rules).isValid();
 
     return isValidPassword;
