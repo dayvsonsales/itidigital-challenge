@@ -34,7 +34,7 @@ Output: A boolean indicating whether the password is valid.
 
 ## Usage
 
-The project is built based on the microservice architecture, use the docker-compose to upload the application quickly and with a minimum of configuration.
+The project is built based on the microservice architecture, use the docker-compose to run the application quickly and with a minimum of configuration.
 
 Run:
 
